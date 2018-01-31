@@ -3,6 +3,19 @@ require 'rails_helper'
 describe QuestionsController do
   let(:question) { create(:question) }
 
+  describe 'GET #index' do
+    let(:questions) { create_list(:question, 2) }
+    before { get :index}
+
+    it 'fullfils questions array' do
+      expect(assigns(:questions)).to match_array(questions)
+    end
+
+    it 'render index view' do
+      expect(response).to render_template :index
+    end 
+  end 
+
   describe 'GET #new' do
     before { get :new }
 
