@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 describe Answer do
-  it do
-    should belong_to :question 
+  describe 'association' do
+    it { should belong_to :question }
   end
 
   context 'validation' do

@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 describe Question do
-  it do
-    should have_many(:answers).dependent :destroy 
+  describe 'association' do
+    it { should have_many(:answers).dependent :destroy }
   end
 
   context 'validation' do
