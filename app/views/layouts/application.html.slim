@@ -12,9 +12,7 @@ html
     p class='notice' = notice
     p class='alert' = alert
 
-    - if user_signed_in?
-        = render 'shared/logged_nav'
-    - else
-        = render 'shared/general_nav'
+    = render 'shared/navigation'
+    = flash_messages
 
-    =yield
+    = yield
