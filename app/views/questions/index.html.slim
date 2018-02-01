@@ -8,5 +8,7 @@ table
   - @questions.each do |question| 
       tr
         td = link_to question.title, question_path(question)
+        td = truncate(question.body, length: 20)
 
+p= link_to 'Back', root_path 
 p= link_to 'Ask question', new_question_path 
