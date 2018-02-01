@@ -47,7 +47,7 @@ describe QuestionsController do
     
     context 'with valid attributes' do
       it 'saves new question to database' do
-        expect { post :create, params: { question: attributes_for(:question) } }.to change(Question, :count).by(1)
+        expect { post :create, params: { question: attributes_for(:question) } }.to change(@user.questions, :count).by(1)
       end
 
       it 'redirects to show view' do
@@ -58,7 +58,7 @@ describe QuestionsController do
 
     context 'with invalid nil attributes' do
       it 'doesn`t save question to database with nil attributes' do
-        expect { post :create, params: { question: attributes_for(:nil_attributes)} }.to_not change(Question, :count)
+        expect { post :create, params: { question: attributes_for(:nil_attributes)} }.to_not change(@user.questions, :count)
       end
 
       it 'again renders new view' do
@@ -69,7 +69,7 @@ describe QuestionsController do
 
     context 'with invalid length-less attributes' do
       it 'doesn`t save question to database with length-less attributes' do
-        expect { post :create, params: { question: attributes_for(:length_less_attributes)} }.to_not change(Question, :count)
+        expect { post :create, params: { question: attributes_for(:length_less_attributes)} }.to_not change(@user.questions, :count)
       end
 
       it 'again renders new view' do
