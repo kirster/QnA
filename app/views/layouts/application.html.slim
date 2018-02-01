@@ -1,0 +1,20 @@
+doctype html
+html
+  head
+
+    title Stackoverflow
+
+    = csrf_meta_tags
+    = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
+    = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
+
+  body
+    p class='notice' = notice
+    p class='alert' = alert
+
+    - if user_signed_in?
+        = render 'shared/logged_nav'
+    - else
+        = render 'shared/general_nav'
+
+    =yield
