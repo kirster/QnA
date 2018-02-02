@@ -4,10 +4,12 @@ h3 = @question.body
 h2 Answers
 
 -if @question.answers.any?
-  ul
-    -@question.answers.each do |answer|
-      li = answer.body
-
+  -@question.answers.each do |answer|
+    - if answer.persisted?
+      p
+        = answer.body
+        -if user_signed_in? && current_user.author?(answer)
+          = link_to 'Delete answer', answer_path(answer), method: :delete
 
 -if user_signed_in?
   p Give your answer

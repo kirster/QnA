@@ -36,4 +36,31 @@ describe AnswersController do
     end
    end 
   end
+
+  describe 'DELETE #destroy' do
+
+    before{ sign_in answer.user }
+
+    context 'Author deletes his answer' do
+      it 'deletes answer from database' do
+        expect { delete :destroy, params: { id: answer } }.to change(Answer, :count).by(-1)
+      end
+
+      it 'redirects question show' do
+        delete :destroy, params: { id: answer }
+        expect(response).to redirect_to question_path(answer.question)
+      end
+    end
+
+    context 'Non-author tries to delete a question' do
+      let(:another_user) { create(:user) }
+      let(:another_answer) { create(:answer, user: another_user, question: question) }
+
+      it 'doesn`t delete question from database' do
+        another_answer
+        expect { delete :destroy, params: { id: another_answer } }.to_not change(Answer, :count)
+      end
+    end
+    
+  end 
 end

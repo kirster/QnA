@@ -3,7 +3,7 @@ require 'rails_helper'
 feature 'Delete question', %q{
   In order to delete unncecessary question
   As an authenticated user and author of this question
-  I want to be able to ask questions
+  I want to be able to delete questions
 } do
 
   given(:user)     { create(:user) }

@@ -8,7 +8,7 @@ feature 'User can view particular question', %q{
 
   given(:user) { create(:user) }
   given(:question) { create(:question) }
-  given(:answers) { create_list(:answer, 2, question: question)}
+  given!(:answers) { create_list(:answer, 2, question: question)}
 
   scenario 'Logged user can view question' do
     sign_in(user)
