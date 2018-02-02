@@ -14,6 +14,9 @@ h2 Answers
 
   =render 'answers/form', question: @question
 
+-if user_signed_in? && current_user.author?(@question)
+  p = link_to 'Delete question',  question_path(@question), 
+                                  method: :delete
 
 p = link_to 'Back', root_path
-p = link_to 'Ask question', new_question_path   
+p = link_to 'Ask question', new_question_path
