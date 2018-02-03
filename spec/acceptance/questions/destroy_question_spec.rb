@@ -6,10 +6,10 @@ feature 'Delete question', %q{
   I want to be able to delete questions
 } do
 
-  given(:user)     { create(:user) }
-  given(:question) { create(:question, user: user) }
+  given!(:user)     { create(:user) }
+  given!(:question) { create(:question, user: user) }
 
-  given(:another_user)    { create(:user) }
+  given!(:another_user)    { create(:user) }
 
   scenario 'Authenticated user deletes his question' do
     sign_in(user)
@@ -24,12 +24,12 @@ feature 'Delete question', %q{
     sign_in(another_user)
 
     visit question_path(question)
-    expect(page).to_not have_content 'Delete question'
+    expect(page).to_not have_link 'Delete question'
   end
 
   scenario 'Non-authenticated user tries to delete question' do
     visit question_path(question)
-    expect(page).to_not have_content 'Delete question'
+    expect(page).to_not have_link 'Delete question'
   end
   
 end

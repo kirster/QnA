@@ -6,7 +6,7 @@ feature 'Create question', %q{
   I want to be able to ask questions
 } do
 
-  given(:user) { create(:user) }
+  given!(:user) { create(:user) }
 
   scenario 'Authenticated user creates question with valid attributes' do
     sign_in(user)
@@ -18,6 +18,8 @@ feature 'Create question', %q{
     click_on 'Create'
 
     expect(page).to have_content 'Your question was successfully created'
+    expect(page).to have_content user.questions.last.title
+    expect(page).to have_content user.questions.last.body
   end
 
   scenario 'Authenticated user creates question with invalid attributes' do

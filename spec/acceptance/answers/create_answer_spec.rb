@@ -6,8 +6,8 @@ feature 'Create answer', %q{
   I want to be able to give answers
 } do
 
-  given(:user) { create(:user) }
-  given(:question) { create(:question) }
+  given!(:user) { create(:user) }
+  given!(:question) { create(:question) }
 
   scenario 'Authenticated user creates answer with valid attributes' do
     sign_in(user)
@@ -18,6 +18,7 @@ feature 'Create answer', %q{
     click_on 'Add answer'
 
     expect(page).to have_content 'Your answer was successfully created'
+    expect(page).to have_content question.answers.last.body
     expect(current_path).to eq question_path(question) 
   end
 

@@ -6,16 +6,15 @@ feature 'Delete answer', %q{
   I want to be able to delete answer
 } do
 
-  given(:user)      { create(:user) }
-  given(:question)  { create(:question, user: user) }
-  given(:answer)    { create(:answer, user: user, question: question) }
+  given!(:user)      { create(:user) }
+  given!(:question)  { create(:question, user: user) }
+  given!(:answer)    { create(:answer, user: user, question: question) }
 
-  given(:another_user)    { create(:user) }
+  given!(:another_user)    { create(:user) }
 
   scenario 'Authenticated user deletes his answer' do
     sign_in(user)
 
-    answer
     visit question_path(question)
     click_on 'Delete answer'
     expect(page).to have_content 'Answer was successfully deleted.'
@@ -26,12 +25,12 @@ feature 'Delete answer', %q{
     sign_in(another_user)
 
     visit question_path(question)
-    expect(page).to_not have_content 'Delete answer'
+    expect(page).to_not have_link 'Delete answer'
   end
 
   scenario 'Non-authenticated user tries to delete answer' do
     visit question_path(question)
-    expect(page).to_not have_content 'Delete answer'
+    expect(page).to_not have_link 'Delete answer'
   end
   
 end
