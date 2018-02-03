@@ -53,12 +53,16 @@ describe AnswersController do
     end
 
     context 'Non-author tries to delete a question' do
-      let(:another_user) { create(:user) }
-      let(:another_answer) { create(:answer, user: another_user, question: question) }
+      let!(:another_user) { create(:user) }
+      let!(:another_answer) { create(:answer, user: another_user, question: question) }
 
       it 'doesn`t delete question from database' do
-        another_answer
         expect { delete :destroy, params: { id: another_answer } }.to_not change(Answer, :count)
+      end
+
+      it 'renders question view' do
+        delete :destroy, params: { id: another_answer }
+        expect(response).to render_template :show
       end
     end
     

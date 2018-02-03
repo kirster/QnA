@@ -26,6 +26,9 @@ class QuestionsController < ApplicationController
     if current_user.author?(@question)
       @question.destroy
       redirect_to root_path, notice: 'Question was successfully deleted.'
+    else
+      flash.now[:alert] = 'You have no permission.'
+      render :show
     end
   end
 
