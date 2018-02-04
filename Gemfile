@@ -17,6 +17,9 @@ gem 'rubocop', '~> 0.52.1', require: false
 gem 'slim-rails'
 gem 'rails-controller-testing'
 gem 'devise'
+gem 'jquery-rails'
+gem 'jquery-ui-rails'
+gem 'geckodriver-helper'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
@@ -29,6 +32,7 @@ group :test do
   gem 'shoulda-matchers'
   gem 'capybara'
   gem 'launchy'
+  gem 'database_cleaner'
 end
 
 group :development do
