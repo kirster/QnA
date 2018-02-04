@@ -22,21 +22,21 @@ describe User do
 
     context 'question' do
       it 'returns true if user is an author' do
-        expect(user.author?(question)).to eq true
+        expect(user).to be_author(question)
       end
 
       it 'returns false if user is not an author' do
-        expect(user.author?(another_question)).to eq false
+        expect(user).to_not be_author(another_question)
       end
     end
 
     context 'answer' do
       it 'returns true if user is an author' do
-        expect(user.author?(answer)).to eq true
+        expect(user).to be_author(answer)
       end
 
       it 'returns false if user is not an author' do
-        expect(user.author?(another_answer)).to eq false
+        expect(user).to_not be_author(another_answer)
       end
     end
   end
