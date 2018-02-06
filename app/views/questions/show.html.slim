@@ -9,6 +9,7 @@ h2 Answers
 -if user_signed_in?
   p Give your answer
 
+  .answer-errors
   =render 'answers/form', question: @question
 
 -if current_user&.author?(@question)
