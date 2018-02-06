@@ -1,4 +1,4 @@
-require 'rails_helper'
+require_relative '../acceptance_helper'
 
 feature 'User can view particular question', %q{
   In order to read particular question

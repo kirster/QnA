@@ -14,7 +14,7 @@ RSpec.configure do |config|
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
 
-  config.use_transactional_fixtures = false
+  config.use_transactional_fixtures = true
 
   config.infer_spec_type_from_file_location!
 
@@ -24,32 +24,6 @@ RSpec.configure do |config|
   config.include FactoryBot::Syntax::Methods
   config.include Devise::Test::ControllerHelpers, type: :controller
   config.extend ControllerMacros, type: :controller
-  config.include AcceptanceHelper, type: :feature
-
-  config.before(:suite) do
-    DatabaseCleaner.clean_with(:truncation)
-  end
-
-  config.before(:each) do
-    DatabaseCleaner.strategy = :transaction
-  end
-
-  config.before(:each, js: true) do
-    DatabaseCleaner.strategy = :truncation
-  end
-
-  config.before(:each) do
-    DatabaseCleaner.start
-  end
-
-  config.after(:each) do
-    DatabaseCleaner.clean
-  end
- 
-end
-
-Capybara.register_driver :selenium do |app|
-  Capybara::Selenium::Driver.new(app, :browser => :firefox)
 end
 
 Shoulda::Matchers.configure do |config|

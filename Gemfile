@@ -19,13 +19,12 @@ gem 'rails-controller-testing'
 gem 'devise'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
-gem 'geckodriver-helper'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
-  gem 'selenium-webdriver'
   gem 'rspec-rails'
   gem 'factory_bot_rails'
+  gem 'capybara-webkit'
 end
 
 group :test do
