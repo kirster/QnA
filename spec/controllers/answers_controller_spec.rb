@@ -1,8 +1,10 @@
 require 'rails_helper'
 
 describe AnswersController do
-  let(:question) { create(:question) }
-  let(:answer) { create(:answer) }
+  let!(:question)       { create(:question) }
+  let!(:answer)         { create(:answer) }
+  let!(:another_answer) { create(:answer) }
+
 
   describe 'POST #create' do
     sign_in_user
@@ -66,5 +68,50 @@ describe AnswersController do
       end
     end
     
-  end 
+  end
+
+  describe 'PATCH #update' do
+    before { sign_in answer.user }
+
+    context 'Author edits his answer with valid attributes' do
+      it 'updates answer' do
+        patch :update, params: { id: answer, answer: {body: '12345'}, format: :js } 
+        answer.reload
+        expect(answer.body).to eq '12345'
+      end
+
+      it 'renders update template' do
+        patch :update, params: { id: answer, answer: {body: '12345'}, format: :js } 
+        expect(response).to render_template :update
+      end
+    end
+
+    context 'Author edits his answer with invalid attributes' do
+      it 'doesn`t update answer' do
+        patch :update, params: { id: answer, answer: {body: ''}, format: :js } 
+        answer.reload
+        expect(answer.body).to_not eq ''
+      end
+
+      it 'renders update template' do
+        patch :update, params: { id: answer, answer: {body: ''}, format: :js } 
+        expect(response).to render_template :update
+      end
+    end
+
+    context 'Non-author tries to edit answer' do
+      it 'updates answer' do
+        patch :update, params: { id: another_answer, answer: {body: '1111'}, format: :js } 
+        answer.reload
+        expect(answer.body).to_not eq '1111'
+      end
+
+      it 'renders update template' do
+        patch :update, params: { id: another_answer, answer: {body: '11111'}, format: :js } 
+        expect(response).to render_template :update
+      end
+    end
+
+  end
+
 end
