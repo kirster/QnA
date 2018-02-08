@@ -7,8 +7,10 @@ class Answer < ApplicationRecord
   default_scope { order(best: :desc) }
 
   def make_best!
-    question.answers.update_all(best: false)
-    update(best: true)
+    ActiveRecord::Base.transaction do
+      question.answers.update_all(best: false)
+      update!(best: true)
+    end
   end
 
 end
