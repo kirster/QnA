@@ -2,6 +2,7 @@ require 'rails_helper'
 
 describe QuestionsController do
   let(:question) { create(:question) }
+  let(:another_question) { create(:question) }
 
   describe 'GET #index' do
     let(:questions) { create_list(:question, 2) }
@@ -112,6 +113,53 @@ describe QuestionsController do
         expect(response).to render_template :show
       end
     end
-    
-  end 
+  end
+
+  describe 'PATCH #update' do
+    before { sign_in question.user }
+
+    context 'Author edits his question with valid attributes' do
+      it 'updates question' do
+        patch :update, params: { id: question, question: {title: 'aaaaaaaa', body: 'bbbbbb'}, format: :js } 
+        question.reload
+        expect(question.title).to eq 'aaaaaaaa'
+        expect(question.body).to eq   'bbbbbb'
+      end
+
+      it 'renders update template' do
+        patch :update, params: { id: question, question: {title: 'aaaaaaaa', body: 'bbbbbb'}, format: :js }
+        expect(response).to render_template :update
+      end
+    end
+
+    context 'Author edits his question with invalid attributes' do
+      it 'doesn`t update question' do
+        patch :update, params: { id: question, question: {title: '', body: 'bb'}, format: :js }
+        question.reload
+        expect(question.title).to_not eq ''
+        expect(question.body).to_not eq 'bb'
+      end
+
+      it 'renders update template' do
+        patch :update, params: { id: question, question: {title: '', body: 'bb'}, format: :js }
+        expect(response).to render_template :update
+      end
+    end
+
+    context 'Non-author tries to edit answer' do
+      it 'doesn`t update question' do
+        patch :update, params: { id: another_question, question: {title: 'aaaaaaaa', body: 'bbbbbb'}, format: :js } 
+        question.reload
+        expect(question.title).to_not eq 'aaaaaaaa'
+        expect(question.body).to_not eq 'bbbbbb'
+      end
+
+      it 'renders update template' do
+        patch :update, params: { id: another_question, question: {title: 'aaaaaaaa', body: 'bbbbbb'}, format: :js } 
+        expect(response).to render_template :update
+      end
+    end
+
+  end
+
 end

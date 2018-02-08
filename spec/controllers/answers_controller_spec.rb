@@ -100,7 +100,7 @@ describe AnswersController do
     end
 
     context 'Non-author tries to edit answer' do
-      it 'updates answer' do
+      it 'doesn`t update answer' do
         patch :update, params: { id: another_answer, answer: {body: '1111'}, format: :js } 
         answer.reload
         expect(answer.body).to_not eq '1111'

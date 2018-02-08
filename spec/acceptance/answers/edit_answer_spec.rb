@@ -2,7 +2,7 @@ require_relative '../acceptance_helper'
 
 feature 'Answer editing', %q{
   In order to make some corrections
-  As an answer 
+  As an answer author
   I want to be able to edit my answer
 } do 
 
