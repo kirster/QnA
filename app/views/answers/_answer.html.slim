@@ -1,7 +1,17 @@
 - if answer.persisted?
   div class=["answer", "answer-#{answer.id}"]
+    -if answer.best
+      h3 Best answer
+
     = answer.body
+    br
 
     -if current_user&.author?(answer)
       = render 'answers/form_edit', answer: answer
+      br
       = link_to 'Delete answer', answer, method: :delete, remote: true
+      br
+
+    -if current_user&.author?(answer.question)
+      = link_to 'Mark as best', make_best_answer_path(answer), method: :patch, remote: true
+  br 

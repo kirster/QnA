@@ -4,7 +4,7 @@ describe AnswersController do
   let!(:question)       { create(:question) }
   let!(:answer)         { create(:answer) }
   let!(:another_answer) { create(:answer) }
-
+  let!(:another_question) { create(:answer) }
 
   describe 'POST #create' do
     sign_in_user
@@ -112,6 +112,38 @@ describe AnswersController do
       end
     end
 
+  end
+
+  describe 'PATCH #make_best' do
+    before { sign_in question.user }
+    let!(:answer) { create(:answer, question: question) }
+
+    context 'Question`s author marks answer best' do
+      before { patch :make_best, params: { id: answer, format: :js } }
+
+      it 'makes answer best' do
+        expect(answer.reload).to be_best
+      end
+
+      it 'renders make_best template' do 
+        expect(response).to render_template :make_best
+      end
+    end
+
+    context 'Not question author tries to mark answer best' do
+      sign_in_user
+
+      it 'doesn`t make answer best' do
+        patch :make_best, params: { id: answer, format: :js } 
+        answer.reload
+        expect(answer).to_not be_best
+      end
+
+      it 'renders make_best template' do
+        patch :make_best, params: { id: answer, format: :js }  
+        expect(response).to render_template :make_best
+      end
+    end
   end
 
 end
