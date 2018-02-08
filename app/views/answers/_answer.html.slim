@@ -1,5 +1,7 @@
 - if answer.persisted?
-  div class=["answer", "answer-#{answer.id}"]
+
+  div id="answer_#{answer.id}"
+
     -if answer.best
       h3 Best answer
 

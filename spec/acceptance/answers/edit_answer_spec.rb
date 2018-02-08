@@ -36,10 +36,9 @@ feature 'Answer editing', %q{
         expect(page).to_not have_selector 'textarea'
       end
     end
-
     
     scenario 'tries to edit other user`s answer' do
-      within ".answer-#{another_answer.id}" do
+      within "#answer_#{another_answer.id}" do
         expect(page).to_not have_content 'Edit'
       end
     end

@@ -36,11 +36,11 @@ feature 'Best answer', %q{
         create(:answer, best: true, question: question)
         visit question_path(question)
 
-        within ".answer-#{answer.id}" do
+        within "#answer_#{answer.id}" do
           click_on 'Mark as best'
         end
 
-        within ".answer-#{answer.id}" do
+        within "#answer_#{answer.id}}" do
           expect(page).to have_content 'Best answer'
         end
       end
@@ -50,12 +50,15 @@ feature 'Best answer', %q{
 
         visit question_path(question)
         best_answer = answers.last
-        within ".answer-#{best_answer.id}" do
+
+        within "#answer_#{best_answer.id}" do
           click_on 'Mark as best'
         end
+
         within all('.answers').first do
           expect(page).to have_content 'Best answer'
         end
+
       end
     end
 
@@ -74,3 +77,4 @@ feature 'Best answer', %q{
   end
 
 end
+
