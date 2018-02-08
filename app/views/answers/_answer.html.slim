@@ -4,4 +4,4 @@
 
     -if current_user&.author?(answer)
       = render 'answers/form_edit', answer: answer
-      = link_to 'Delete answer', answer, method: :delete
+      = link_to 'Delete answer', answer, method: :delete, remote: true

@@ -1,0 +1,6 @@
+<% if @answer.destroyed? %>
+  $('.answer-<%= @answer.id %>').remove();
+  $('.notice').html('Answer was successfully deleted.');
+<% else %>
+  $('.alert').html('No permission to delete this answer');
+<% end %>

@@ -45,12 +45,12 @@ describe AnswersController do
 
     context 'Author deletes his answer' do
       it 'deletes answer from database' do
-        expect { delete :destroy, params: { id: answer } }.to change(Answer, :count).by(-1)
+        expect { delete :destroy, params: { id: answer, format: :js } }.to change(Answer, :count).by(-1)
       end
 
-      it 'redirects question show' do
-        delete :destroy, params: { id: answer }
-        expect(response).to redirect_to question_path(answer.question)
+      it 'renders destroy template' do
+        delete :destroy, params: { id: answer, format: :js }
+        expect(response).to render_template :destroy
       end
     end
 
@@ -59,12 +59,12 @@ describe AnswersController do
       let!(:another_answer) { create(:answer, user: another_user, question: question) }
 
       it 'doesn`t delete question from database' do
-        expect { delete :destroy, params: { id: another_answer } }.to_not change(Answer, :count)
+        expect { delete :destroy, params: { id: another_answer, format: :js } }.to_not change(Answer, :count)
       end
 
-      it 'renders question view' do
-        delete :destroy, params: { id: another_answer }
-        expect(response).to render_template :show
+      it 'renders destroy template' do
+        delete :destroy, params: { id: another_answer, format: :js }
+        expect(response).to render_template :destroy
       end
     end
     
