@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180211074025) do
+ActiveRecord::Schema.define(version: 20180211082638) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -32,8 +32,7 @@ ActiveRecord::Schema.define(version: 20180211074025) do
     t.datetime "updated_at", null: false
     t.integer "attachable_id"
     t.string "attachable_type"
-    t.index ["attachable_id"], name: "index_attachments_on_attachable_id"
-    t.index ["attachable_type"], name: "index_attachments_on_attachable_type"
+    t.index ["attachable_id", "attachable_type"], name: "index_attachments_on_attachable_id_and_attachable_type"
   end
 
   create_table "questions", force: :cascade do |t|

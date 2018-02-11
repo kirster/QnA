@@ -1,8 +1,15 @@
-=form_with model: [question, question.answers.build], remote: true do |f|
+=form_with model: [@question, @answer], remote: true do |f|
   = render 'shared/errors', resource: @answer
 
   = f.label :body
   = f.text_area :body
   br
+
+  p Attachments:
+  
+  p
+    = f.fields_for :attachments do |a|
+      = a.label :file
+      = a.file_field :file
 
   = f.submit 'Add answer'

@@ -9,7 +9,7 @@ h2 Answers
   p Give your answer
   
   .answer-errors
-  =render 'answers/form', question: @question
+  =render 'answers/form', question: @question, answer: @answer
 
 p = link_to 'Back', root_path
 p = link_to 'Ask question', new_question_path
