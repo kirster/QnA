@@ -9,10 +9,9 @@ html
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
 
   body
+    = render 'shared/navigation'
+    
     p class='notice' = notice
     p class='alert' = alert
-
-    = render 'shared/navigation'
-    = flash_messages
 
     = yield

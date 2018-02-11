@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180208074753) do
+ActiveRecord::Schema.define(version: 20180211060115) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,6 +24,24 @@ ActiveRecord::Schema.define(version: 20180208074753) do
     t.boolean "best", default: false
     t.index ["question_id"], name: "index_answers_on_question_id"
     t.index ["user_id"], name: "index_answers_on_user_id"
+  end
+
+  create_table "atachments", force: :cascade do |t|
+    t.string "file"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "atachmentable_id"
+    t.string "atachmentable_type"
+    t.index ["atachmentable_id"], name: "index_atachments_on_atachmentable_id"
+    t.index ["atachmentable_type"], name: "index_atachments_on_atachmentable_type"
+  end
+
+  create_table "attachments", force: :cascade do |t|
+    t.string "file"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "question_id"
+    t.index ["question_id"], name: "index_attachments_on_question_id"
   end
 
   create_table "questions", force: :cascade do |t|
@@ -53,5 +71,6 @@ ActiveRecord::Schema.define(version: 20180208074753) do
   end
 
   add_foreign_key "answers", "users"
+  add_foreign_key "attachments", "questions"
   add_foreign_key "questions", "users"
 end
