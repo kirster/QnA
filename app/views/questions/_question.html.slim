@@ -3,10 +3,8 @@ h3 = @question.body
 
 -if @question.attachments.any?
   p Attachments:
-
-  ul
-    - @question.attachments.each do |a|
-      li= link_to a.file.identifier, a.file.url
+  = render 'attachments/attachment', resource: @question
+  br
 
 -if current_user&.author?(@question)
   = render 'questions/form_edit', question: @question
