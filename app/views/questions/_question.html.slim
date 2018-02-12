@@ -1,11 +1,12 @@
 h1 = @question.title
 h3 = @question.body
 
-p Attachments:
+-if @question.attachments.any?
+  p Attachments:
 
-ul
-  - @question.attachments.each do |a|
-    li= link_to a.file.identifier, a.file.url
+  ul
+    - @question.attachments.each do |a|
+      li= link_to a.file.identifier, a.file.url
 
 -if current_user&.author?(@question)
   = render 'questions/form_edit', question: @question

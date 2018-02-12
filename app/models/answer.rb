@@ -7,7 +7,7 @@ class Answer < ApplicationRecord
 
   default_scope { order(best: :desc) }
 
-  accepts_nested_attributes_for :attachments
+  accepts_nested_attributes_for :attachments, reject_if: :all_blank, allow_destroy: true
 
   def make_best!
     ActiveRecord::Base.transaction do
