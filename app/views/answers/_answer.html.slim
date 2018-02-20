@@ -8,6 +8,17 @@
     = answer.body
     br
 
+    h3 Rating:
+    p.rating
+      = answer.rating
+
+      -if user_signed_in?
+        -unless current_user&.author?(answer)
+          = render 'answers/answer_vote', answer: answer
+
+    .answer-errors
+    br
+
     -if answer.attachments.any? 
       p Attachments:
       = render 'attachments/attachment', resource: answer

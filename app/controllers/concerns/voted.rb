@@ -46,7 +46,7 @@ module Voted
   end
 
   def render_error(message)
-    render json: { error_message: message }, status: :forbidden
+    render json: { error_message: message, type: @resource.class.name }, status: :forbidden
   end
 
 end

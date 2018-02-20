@@ -246,7 +246,7 @@ describe QuestionsController do
         before {  post :create_vote, params: { id: question.id } }
 
         it 'deletes vote' do
-          expect { delete :delete_vote, params: { id: question.id }}.to change(question.votes, :count)
+          expect { delete :delete_vote, params: { id: question.id }}.to change(question.votes, :count).by(-1)
         end
 
         it 'responses 200 status' do

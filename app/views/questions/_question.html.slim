@@ -2,12 +2,15 @@ h1 = @question.title
 h3 = @question.body
 
 h3 Rating:
-p.rating 
+
+p.rating
   = @question.rating
 
   -if user_signed_in?
     -unless current_user&.author?(@question)
       = render 'question_vote'
+
+  .question-errors
 br
 
 -if @question.attachments.any?

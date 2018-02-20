@@ -61,6 +61,7 @@ feature 'Question voting', %q{
     context 'Question`s author' do  
       before do
         sign_in question.user
+        visit question_path(question)
       end
 
       scenario 'plus vote', js: true do
