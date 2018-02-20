@@ -3,6 +3,7 @@ module Votable
 
   included do
     has_many :votes, as: :votable, dependent: :destroy
+    accepts_nested_attributes_for :votes
   end
 
   def give_plus_vote(user)

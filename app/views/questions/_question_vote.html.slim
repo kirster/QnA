@@ -1,0 +1,10 @@
+.errors
+
+p.vote_up 
+  = link_to 'Like', create_vote_question_path(@question, plus: true), method: :post, remote: true
+
+p.vote_down
+  = link_to 'Dislike', create_vote_question_path(@question), method: :post, remote: true
+
+p.cancel_vote
+  = link_to 'Cancel your vote', delete_vote_question_path(@question), method: :delete, remote: true
