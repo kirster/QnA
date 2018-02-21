@@ -6,7 +6,7 @@ module Voted
   end
 
   def create_vote
-    unless vote_permission?
+    if vote_permission?
       add_vote
     else
       render_error("You are not able to vote")
@@ -38,7 +38,7 @@ module Voted
   end
 
   def vote_permission?
-    current_user.author?(@resource) || @resource.voted_by?(current_user)
+    !(current_user.author?(@resource) || @resource.voted_by?(current_user))
   end
 
   def render_success
@@ -46,7 +46,7 @@ module Voted
   end
 
   def render_error(message)
-    render json: { error_message: message, type: @resource.class.name }, status: :forbidden
+    render json: { error_message: message }, status: :forbidden
   end
 
 end

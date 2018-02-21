@@ -6,11 +6,10 @@ h3 Rating:
 p.rating
   = @question.rating
 
-  -if user_signed_in?
-    -unless current_user&.author?(@question)
-      = render 'question_vote'
+  -if user_signed_in? && !current_user&.author?(@question) 
+    = render 'question_vote'
 
-  .question-errors
+  .errors
 br
 
 -if @question.attachments.any?

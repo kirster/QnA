@@ -23,7 +23,7 @@ module Votable
   end
 
   def rating
-    votes.sum :value
+    votes.sum(:value)
   end
 
 end

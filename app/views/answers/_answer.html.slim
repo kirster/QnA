@@ -12,11 +12,10 @@
     p.rating
       = answer.rating
 
-      -if user_signed_in?
-        -unless current_user&.author?(answer)
-          = render 'answers/answer_vote', answer: answer
+      -if user_signed_in? && !current_user&.author?(answer)
+        = render 'answers/answer_vote', answer: answer
 
-    .answer-errors
+    .errors
     br
 
     -if answer.attachments.any? 
